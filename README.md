@@ -50,5 +50,5 @@ A web platform that allows individuals to create stories and collaboratively add
 4. View Stories: All users can browse through the list of available stories and read chapters.
 
 # Collaborators
-- Shrx14 - github.com/Shrx14
+- AnoojShete - github.com/AnoojShete
 - Niraj-82 - github.com/Niraj-82
