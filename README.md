@@ -30,7 +30,7 @@ A web platform that allows individuals to create stories and collaboratively add
 1. Clone the repository:
 
    ```bash
-   git clone https://github.com/Shrx14/StoryCollab
+   git clone https://github.com/Shrx14/StoryCollab.git
    ```
    
 2. cd story-collaborator-platform
