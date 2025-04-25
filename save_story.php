@@ -1,12 +1,19 @@
 <?php
-include 'db.php';
+require_once 'db.php';
 
-$title = mysqli_real_escape_string($conn, $_POST['title']);
-$content = mysqli_real_escape_string($conn, $_POST['content']);
+if (!isset($_POST['title'], $_POST['content'], $_POST['user_id'])) {
+    header('Location: create_story.php');
+    exit;
+}
+
+$title = $_POST['title'];
+$content = $_POST['content'];
 $user_id = (int)$_POST['user_id'];
 
-$sql = "INSERT INTO stories (title, content, user_id) VALUES ('$title', '$content', $user_id)";
-mysqli_query($conn, $sql);
+$pdo = get_db_connection();
+
+$stmt = $pdo->prepare("INSERT INTO stories (title, content, user_id) VALUES (?, ?, ?)");
+$stmt->execute([$title, $content, $user_id]);
 
 header('Location: dashboard.php');
 exit;

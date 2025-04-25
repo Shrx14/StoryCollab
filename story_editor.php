@@ -1,14 +1,25 @@
-<?php 
-include 'db.php';
-if(!isset($_GET['id'])) die('Story not found');
+<?php
+session_start();
+require_once 'db.php';
+
+if (!isset($_GET['id'])) {
+    die('Story not found');
+}
 
 $id = $_GET['id'];
-$result = mysqli_query($conn, "SELECT * FROM stories WHERE id = $id");
-$story = mysqli_fetch_assoc($result);
+$pdo = get_db_connection();
+
+$stmt = $pdo->prepare("SELECT * FROM stories WHERE id = ?");
+$stmt->execute([$id]);
+$story = $stmt->fetch();
+
+if (!$story) {
+    die('Story not found');
+}
 
 // Check if user is the owner of this story
-if (isset($_SESSION['user_id']) && $_SESSION['user_id'] != $story['user_id']) {
-  die('You do not have permission to edit this story');
+if (!isset($_SESSION['user_id']) || $_SESSION['user_id'] != $story['user_id']) {
+    die('You do not have permission to edit this story');
 }
 ?>
 <?php include 'header.php'; ?>

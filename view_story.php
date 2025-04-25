@@ -1,19 +1,22 @@
 <?php
-include 'db.php';
-if(!isset($_GET['id'])) {
-  header('Location: stories.php');
-  exit;
+require_once 'db.php';
+
+if (!isset($_GET['id'])) {
+    header('Location: stories.php');
+    exit;
 }
 
 $id = (int)$_GET['id'];
-$result = mysqli_query($conn, "SELECT s.*, u.username FROM stories s JOIN users u ON s.user_id = u.id WHERE s.id = $id");
+$pdo = get_db_connection();
 
-if(mysqli_num_rows($result) === 0) {
-  header('Location: stories.php');
-  exit;
+$stmt = $pdo->prepare("SELECT s.*, u.username FROM stories s JOIN users u ON s.user_id = u.id WHERE s.id = ?");
+$stmt->execute([$id]);
+$story = $stmt->fetch();
+
+if (!$story) {
+    header('Location: stories.php');
+    exit;
 }
-
-$story = mysqli_fetch_assoc($result);
 ?>
 <?php include 'header.php'; ?>
 

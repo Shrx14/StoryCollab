@@ -1,5 +1,13 @@
-<?php include 'db.php'; ?>
-<?php include 'header.php'; ?>
+<?php
+require_once 'db.php';
+include 'header.php';
+
+$pdo = get_db_connection();
+
+$stmt = $pdo->query("SELECT s.*, u.username FROM stories s JOIN users u ON s.user_id = u.id ORDER BY s.id DESC");
+$stories = $stmt->fetchAll();
+
+?>
 
 <div class="page-banner">
   <div class="container">
@@ -12,10 +20,8 @@
   
   <div class="stories-grid">
     <?php
-    $result = mysqli_query($conn, "SELECT s.*, u.username FROM stories s JOIN users u ON s.user_id = u.id ORDER BY s.id DESC");
-    
-    if (mysqli_num_rows($result) > 0) {
-      while ($row = mysqli_fetch_assoc($result)) {
+    if (count($stories) > 0) {
+      foreach ($stories as $row) {
         $colors = array('#FF6B6B', '#4ECDC4', '#45B7D1', '#FCBF49', '#7B68EE', '#98D8C8');
         $randomColor = $colors[array_rand($colors)];
         $wordCount = str_word_count($row['content']);

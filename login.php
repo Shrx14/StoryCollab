@@ -1,22 +1,20 @@
 <?php
 session_start();
-include 'db.php';
+require_once 'db.php';
+require_once 'auth.php';
+
+$pdo = get_db_connection();
 
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
-  $username = mysqli_real_escape_string($conn, $_POST['username']);
-  $password = $_POST['password'];
+    $email = $_POST['username']; // Assuming username is email for compatibility
+    $password = $_POST['password'];
 
-  $result = mysqli_query($conn, "SELECT * FROM users WHERE username = '$username'");
-  $user = mysqli_fetch_assoc($result);
-
-  if ($user && password_verify($password, $user['password'])) {
-    $_SESSION['username'] = $user['username'];
-    $_SESSION['user_id'] = $user['id'];
-    header("Location: dashboard.php");
-    exit;
-  } else {
-    $error = "Invalid credentials.";
-  }
+    if (login($pdo, $email, $password)) {
+        header("Location: dashboard.php");
+        exit;
+    } else {
+        $error = "Invalid credentials.";
+    }
 }
 ?>
 <!DOCTYPE html>
@@ -41,7 +39,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             <h2>Login</h2>
             <?php if (isset($error)) echo "<p class='error'>$error</p>"; ?>
             <form method="POST" class="form-box">
-                <input type="text" name="username" placeholder="Username" required>
+                <input type="text" name="username" placeholder="Email" required>
                 <input type="password" name="password" placeholder="Password" required>
                 <button type="submit" class="btn">Login</button>
             </form>

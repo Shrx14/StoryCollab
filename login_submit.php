@@ -1,17 +1,27 @@
 <?php
 session_start();
-include 'db.php';
+require_once 'db.php';
+
+if (!isset($_POST['username'], $_POST['password'])) {
+    header('Location: login.php');
+    exit;
+}
+
 $username = $_POST['username'];
 $password = $_POST['password'];
 
-$result = mysqli_query($conn, "SELECT * FROM users WHERE username = '$username'");
-$user = mysqli_fetch_assoc($result);
+$pdo = get_db_connection();
+
+$stmt = $pdo->prepare("SELECT * FROM users WHERE username = ?");
+$stmt->execute([$username]);
+$user = $stmt->fetch();
 
 if ($user && password_verify($password, $user['password'])) {
-  $_SESSION['user_id'] = $user['id'];
-  $_SESSION['username'] = $user['username'];
-  header("Location: dashboard.php");
+    $_SESSION['user_id'] = $user['id'];
+    $_SESSION['username'] = $user['username'];
+    header("Location: dashboard.php");
+    exit;
 } else {
-  echo "Invalid login credentials.";
+    echo "Invalid login credentials.";
 }
 ?>

@@ -1,10 +1,19 @@
 <?php
 session_start();
-include 'db.php';
+require_once 'db.php';
+
 if (!isset($_SESSION['user_id'])) {
-  header('Location: login.php');
-  exit;
+    header('Location: login.php');
+    exit;
 }
+
+$pdo = get_db_connection();
+$user_id = $_SESSION['user_id'];
+
+$stmt = $pdo->prepare("SELECT * FROM stories WHERE user_id = ?");
+$stmt->execute([$user_id]);
+$stories = $stmt->fetchAll();
+
 ?>
 <?php include 'header.php'; ?>
 
@@ -23,9 +32,7 @@ if (!isset($_SESSION['user_id'])) {
 
     <div class="story-list">
       <?php
-        $user_id = $_SESSION['user_id'];
-        $result = mysqli_query($conn, "SELECT * FROM stories WHERE user_id = $user_id");
-        while ($row = mysqli_fetch_assoc($result)) {
+        foreach ($stories as $row) {
           echo "<div class='story-card'>";
           echo "<h3><a href='story_editor.php?id={$row['id']}'>" . htmlspecialchars($row['title']) . "</a></h3>";
           echo "<p>" . htmlspecialchars(substr($row['content'], 0, 100)) . "...</p>";
