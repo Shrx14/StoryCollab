@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>StoryCollab - Collaborative Storytelling Platform</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+  <header class="header fade-in">
+    <div class="container">
+      <h1><i class="fas fa-book-open"></i> StoryCollab</h1>
+      <nav>
+        <a href="index.html" class="active"><i class="fas fa-home"></i> Home</a>
+        <a href="dashboard.php"><i class="fas fa-tachometer-alt"></i> Dashboard</a>
+        <a href="create_story.php"><i class="fas fa-pen-fancy"></i> Create Story</a>
+        <a href="stories.php"><i class="fas fa-book-open"></i> Explore</a>
+        <a href="profile.php"><i class="fas fa-user"></i> Profile</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero slide-up">
+      <div class="hero-text">
+        <h2>Collaborate, Create, Inspire</h2>
+        <p>Join writers around the world to co-write amazing stories. Share your ideas, collaborate with others, and bring your creative visions to life.</p>
+        <div class="hero-actions">
+          <a href="register.php" class="btn btn-primary"><i class="fas fa-user-plus"></i> Sign Up Free</a>
+          <a href="login.php" class="btn btn-outline"><i class="fas fa-sign-in-alt"></i> Log In</a>
+        </div>
+      </div>
+      <div class="hero-img">
+        <img src="https://images.unsplash.com/photo-1516972810927-80185027ca84?auto=format&fit=crop&w=800&q=80" alt="Writers collaborating" />
+      </div>
+    </section>
+
+    <section class="features container fade-in">
+      <h2 class="section-title">Why StoryCollab?</h2>
+      <div class="feature-cards">
+        <div class="feature-card">
+          <div class="feature-icon">
+            <i class="fas fa-pen-nib"></i>
+          </div>
+          <h3>Create Together</h3>
+          <p>Collaborate with writers from around the world to create compelling narratives and unique stories.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">
+            <i class="fas fa-cloud"></i>
+          </div>
+          <h3>Auto-Save</h3>
+          <p>Never lose your progress with our real-time auto-save feature that keeps your work safe.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">
+            <i class="fas fa-users"></i>
+          </div>
+          <h3>Community</h3>
+          <p>Join a supportive community of writers who share feedback and help each other grow.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="cta slide-up">
+      <div class="container">
+        <h2>Ready to start your storytelling journey?</h2>
+        <p>Join thousands of writers who are already creating amazing stories together.</p>
+        <a href="register.php" class="btn">Get Started Today</a>
+      </div>
+    </section>
+
+    <section class="recent-stories container fade-in">
+      <h2 class="section-title">Featured Stories</h2>
+      <div class="story-carousel">
+        <div class="story-card">
+          <div class="story-cover">
+            <img src="assets/story1-cover.jpg" alt="Story cover" />
+          </div>
+          <h3>The Lost Key</h3>
+          <p class="story-excerpt">A mysterious key appears on Emma's doorstep, leading her on an unexpected adventure...</p>
+          <a href="stories.php" class="btn-subtle">Read More</a>
+        </div>
+        <div class="story-card">
+          <div class="story-cover">
+            <img src="assets/story2-cover.jpg" alt="Story cover" />
+          </div>
+          <h3>Beyond the Stars</h3>
+          <p class="story-excerpt">When the night sky suddenly changes, astronomers discover something extraordinary...</p>
+          <a href="stories.php" class="btn-subtle">Read More</a>
+        </div>
+        <div class="story-card">
+          <div class="story-cover">
+            <img src="assets/story3-cover.jpg" alt="Story cover" />
+          </div>
+          <h3>The Hidden Village</h3>
+          <p class="story-excerpt">Deep in the forest lies a village that appears only once every hundred years...</p>
+          <a href="stories.php" class="btn-subtle">Read More</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer fade-in">
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-section">
+          <h3>StoryCollab</h3>
+          <p>A collaborative platform for writers to create and share stories together.</p>
+        </div>
+        <div class="footer-section">
+          <h3>Quick Links</h3>
+          <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="stories.php">Explore Stories</a></li>
+            <li><a href="register.php">Join Now</a></li>
+          </ul>
+        </div>
+        <div class="footer-section">
+          <h3>Connect With Us</h3>
+          <div class="social-icons">
+            <a href="#"><i class="fab fa-facebook"></i></a>
+            <a href="#"><i class="fab fa-twitter"></i></a>
+            <a href="#"><i class="fab fa-instagram"></i></a>
+          </div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2025 StoryCollab. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    $(document).ready(function() {
+      // Animate elements when they come into view
+      $(window).scroll(function() {
+        $('.fade-in').each(function() {
+          let bottom_of_element = $(this).offset().top + $(this).outerHeight() / 2;
+          let bottom_of_window = $(window).scrollTop() + $(window).height();
+          
+          if (bottom_of_window > bottom_of_element) {
+            $(this).addClass('visible');
+          }
+        });
+        
+        $('.slide-up').each(function() {
+          let bottom_of_element = $(this).offset().top + $(this).outerHeight() / 3;
+          let bottom_of_window = $(window).scrollTop() + $(window).height();
+          
+          if (bottom_of_window > bottom_of_element) {
+            $(this).addClass('visible');
+          }
+        });
+      });
+      
+      // Trigger scroll once to check for elements already in view on page load
+      $(window).scroll();
+    });
+  </script>
+</body>
+</html>
